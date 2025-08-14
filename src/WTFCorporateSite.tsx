@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowUpRight, Leaf, ShieldCheck, Factory, Truck, Sprout, Mail, MapPin, Phone, CheckCircle2, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import AppleQualityInteractive from "@/components/AppleQualityInteractive";
 
 /**
  * What The Fruit – Corporate Site (single-file)
@@ -244,41 +245,12 @@ export default function WTFCorporateSite() {
 
       {/* QUALITY */}
       <Section id="quality" className="bg-white text-emerald-900">
-        <div className="mx-auto max-w-7xl px-6 py-20">
-          <div className="grid md:grid-cols-2 gap-10 items-center">
-            <div className="order-2 md:order-1">
-              <h2 className="text-3xl sm:text-4xl font-extrabold">6 different physical and sensory inspections</h2>
-              <ul className="mt-6 space-y-4 text-lg leading-8">
-                <li>
-                  <span className="font-semibold">1. Appearance</span> – uniform color, absence of bruises, cuts, blemishes, scald, or decay.
-                </li>
-                <li>
-                  <span className="font-semibold">2. Size &amp; Shape</span> – compliance with grade standards (diameter, weight).
-                </li>
-                <li>
-                  <span className="font-semibold">3. Firmness</span> – using a penetrometer to measure flesh firmness in kg/cm² or lbf.
-                </li>
-                <li>
-                  <span className="font-semibold">4. Skin Condition</span> – absence of wrinkles (indicates dehydration).
-                </li>
-                <li>
-                  <span className="font-semibold">5. Flavor &amp; Aroma</span> – sensory evaluation for sweetness, acidity, and aroma.
-                </li>
-                <li>
-                  <span className="font-semibold">6. Defects</span> – check for insect damage, sunburn, russeting, bitter pit, water core.
-                </li>
-              </ul>
-            </div>
-            <div className="order-1 md:order-2">
-              <img
-                src="applebackground-min.jpg"
-                alt="Fresh apples background"
-                className="rounded-2xl shadow-2xl ring-1 ring-emerald-900/10"
-              />
-            </div>
-          </div>
-        </div>
+        <AppleQualityInteractive
+          src={`${import.meta.env.BASE_URL}apple.png`} 
+          title="6 different physical and sensory inspections"
+        />
       </Section>
+
 
 
       {/* ESG */}
