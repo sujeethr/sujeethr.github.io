@@ -80,29 +80,61 @@ export default function WTFCorporateSite() {
     <div className="min-h-screen w-full text-emerald-50 bg-white">
       {/* NAVBAR */}
       <header className="fixed top-0 inset-x-0 z-50">
-        <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
-          <div className="mt-3 flex items-center justify-between rounded-2xl bg-emerald-900/90 backdrop-blur supports-[backdrop-filter]:bg-emerald-900/60 px-2 sm:px-4 py-2 shadow-lg ring-1 ring-white/10">
-            <div className="flex items-center gap-3">
-              <img src="logo.png" alt="What The Fruit" className="h-10 w-auto rounded-sm"/>
-              <div className="hidden sm:block">
-                <Pill>
-                  <Leaf className="h-4 w-4"/> Outrageously delicious
-                </Pill>
-              </div>
-            </div>
-            <nav aria-label="Primary" className="hidden md:flex items-center gap-2">
-              {NAV.map(n => (
-                <Button key={n.id} variant={active===n.id?"default":"ghost"} onClick={()=>scrollTo(n.id)} className={active===n.id?"bg-white text-emerald-900 hover:bg-white":"text-white hover:bg-white/10"}>
-                  {n.label}
-                </Button>
-              ))}
-            </nav>
-            <div className="flex md:hidden">
-              <Button variant="secondary" onClick={()=>scrollTo("contact")} className="text-emerald-900">Contact</Button>
+      <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
+        {/* relative + overflow-visible lets the logo float outside the bar */}
+        <div className="relative overflow-visible mt-3 flex items-center justify-between rounded-2xl bg-emerald-900/90 backdrop-blur supports-[backdrop-filter]:bg-emerald-900/60 px-2 sm:px-4 py-2 shadow-lg ring-1 ring-white/10">
+          
+          {/* FLOATING LOGO (absolute) */}
+          <img
+            src={`${import.meta.env.BASE_URL}logo.png`}
+            alt="What The Fruit"
+            className="absolute left-2 md:left-3 -top-5 md:-top-6 h-20 md:h-24 w-auto rounded-sm drop-shadow-xl pointer-events-none select-none"
+          />
+
+          {/* pad left so content doesn't collide with logo */}
+          <div className="flex items-center gap-3 pl-24 md:pl-28">
+            <div className="hidden sm:block">
+              <Pill>
+                <Leaf className="h-4 w-4" /> Outrageously delicious
+              </Pill>
             </div>
           </div>
+
+          {/* NAV: force readable states (no white-on-white on hover/focus/selection) */}
+          <nav aria-label="Primary" className="hidden md:flex items-center gap-2">
+            {NAV.map((n) => (
+              <Button
+                key={n.id}
+                variant="ghost"
+                onClick={() => scrollTo(n.id)}
+                className={[
+                  active === n.id
+                    ? "bg-white text-emerald-900 hover:bg-white" // active: dark text
+                    : "text-white hover:bg-emerald-800 hover:text-white", // inactive: darken bg slightly, keep text white
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+                ].join(" ")}
+              >
+                {n.label}
+              </Button>
+
+            ))}
+          </nav>
+
+          {/* mobile CTA */}
+          <div className="flex md:hidden">
+            <Button
+              variant="secondary"
+              onClick={() => scrollTo('contact')}
+              className="text-emerald-900"
+            >
+              Contact
+            </Button>
+          </div>
         </div>
-      </header>
+      </div>
+    </header>
+
+
 
       {/* HERO */}
       <Section id="home" ariaLabel="Home / Hero" className="relative isolate">
@@ -134,9 +166,9 @@ export default function WTFCorporateSite() {
 
             {/* quick stats */}
             <div className="mt-16 grid grid-cols-3 gap-6 max-w-2xl">
-              <Stat value=">99%" label="On‑time cold deliveries"/>
+              <Stat value="500+" label="Retailers in Mumbai"/>
               <Stat value="12+" label="Partner farms"/>
-              <Stat value="8 cities" label="Active distribution"/>
+          
             </div>
           </div>
         </div>
@@ -148,7 +180,7 @@ export default function WTFCorporateSite() {
           <div className="grid md:grid-cols-2 gap-10 items-start">
             <div>
               <h2 className="text-3xl sm:text-4xl font-extrabold">What’s in a name?</h2>
-              <p className="mt-4 italic text-emerald-900/90">“.. that which we call an apple by any other name would taste as sweet…” — Shakespeare</p>
+              <p className="mt-4 italic text-emerald-900/90">“The poet said.. that which we call an apple by any other name would taste as sweet…”</p>
               <p className="mt-6 text-lg leading-8">
                 <span className="font-semibold italic">But, do they?</span> Fruits that are wrongly harvested, stored, transported and exposed to the harsh elements during their journey from farm to your table won’t taste good.
                 <br/><br/>
@@ -215,23 +247,39 @@ export default function WTFCorporateSite() {
         <div className="mx-auto max-w-7xl px-6 py-20">
           <div className="grid md:grid-cols-2 gap-10 items-center">
             <div className="order-2 md:order-1">
-              <h2 className="text-3xl sm:text-4xl font-extrabold">Quality you can measure</h2>
-              <p className="mt-6 text-lg leading-8">
-                Objective checks at goods‑in and dispatch—firmness (pressure), sweetness (°Brix), size and appearance—are tied to batch IDs. Every lot is QC‑signed.
-              </p>
-              <div className="mt-6 grid grid-cols-2 gap-4">
-                <Stat value=">12°" label="Brix (sweetness)"/>
-                <Stat value=">7kg" label="Firmness (pressure)"/>
-                <Stat value="4–6°C" label="Cold chain"/>
-                <Stat value="100%" label="Traceability"/>
-              </div>
+              <h2 className="text-3xl sm:text-4xl font-extrabold">6 different physical and sensory inspections</h2>
+              <ul className="mt-6 space-y-4 text-lg leading-8">
+                <li>
+                  <span className="font-semibold">1. Appearance</span> – uniform color, absence of bruises, cuts, blemishes, scald, or decay.
+                </li>
+                <li>
+                  <span className="font-semibold">2. Size &amp; Shape</span> – compliance with grade standards (diameter, weight).
+                </li>
+                <li>
+                  <span className="font-semibold">3. Firmness</span> – using a penetrometer to measure flesh firmness in kg/cm² or lbf.
+                </li>
+                <li>
+                  <span className="font-semibold">4. Skin Condition</span> – absence of wrinkles (indicates dehydration).
+                </li>
+                <li>
+                  <span className="font-semibold">5. Flavor &amp; Aroma</span> – sensory evaluation for sweetness, acidity, and aroma.
+                </li>
+                <li>
+                  <span className="font-semibold">6. Defects</span> – check for insect damage, sunburn, russeting, bitter pit, water core.
+                </li>
+              </ul>
             </div>
             <div className="order-1 md:order-2">
-              <img src="applebackground-min.jpg" alt="Fresh apples background" className="rounded-2xl shadow-2xl ring-1 ring-emerald-900/10"/>
+              <img
+                src="applebackground-min.jpg"
+                alt="Fresh apples background"
+                className="rounded-2xl shadow-2xl ring-1 ring-emerald-900/10"
+              />
             </div>
           </div>
         </div>
       </Section>
+
 
       {/* ESG */}
       <Section id="esg" className="bg-emerald-900 text-white">
@@ -329,7 +377,7 @@ export default function WTFCorporateSite() {
       <footer className="border-t border-emerald-900/10 bg-emerald-900 text-white">
         <div className="mx-auto max-w-7xl px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <img src="logo.png" alt="What The Fruit" className="h-8"/>
+            <img src={`${import.meta.env.BASE_URL}logo.png`} alt="What The Fruit" className="h-8"/>
             <span className="text-sm tracking-wider">© {new Date().getFullYear()} Growerscrate Agrotech Pvt. Ltd</span>
           </div>
           <div className="text-xs opacity-80">Made with care. If it’s not great, we’ll make it right.</div>
