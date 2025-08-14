@@ -181,7 +181,7 @@ export default function WTFCorporateSite() {
           <div className="grid md:grid-cols-2 gap-10 items-start">
             <div>
               <h2 className="text-3xl sm:text-4xl font-extrabold">What’s in a name?</h2>
-              <p className="mt-4 italic text-emerald-900/90">“The poet said.. that which we call an apple by any other name would taste as sweet…”</p>
+              <p className="mt-4 italic text-emerald-900/90">The poet said  ".. that which we call an apple by any other name would taste as sweet…”</p>
               <p className="mt-6 text-lg leading-8">
                 <span className="font-semibold italic">But, do they?</span> Fruits that are wrongly harvested, stored, transported and exposed to the harsh elements during their journey from farm to your table won’t taste good.
                 <br/><br/>
