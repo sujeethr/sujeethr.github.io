@@ -189,7 +189,7 @@ export default function WTFCorporateSite() {
               </p>
               <div className="mt-6 flex flex-wrap gap-2">
                 <Pill><Factory className="h-4 w-4"/> Controlled sourcing</Pill>
-                <Pill><Truck className="h-4 w-4"/> Assured cold‑chain</Pill>
+                <Pill><Truck className="h-4 w-4"/> Quick to Market</Pill>
                 <Pill><Sprout className="h-4 w-4"/> Farm partnerships</Pill>
               </div>
             </div>
@@ -199,10 +199,11 @@ export default function WTFCorporateSite() {
               </CardHeader>
               <CardContent className="space-y-4 text-emerald-900/90">
                 {[
+                  "Nurture the farmers who nurture the fruits.",
                   "Harvest at peak maturity—never early for logistics.",
-                  "Maintain 0–4°C cold chain from farm to retailer.",
+                  "Dedicated long-haul transport to market.",
                   "Batch‑level traceability and QC at every hop.",
-                  "Zero‑talk policy: claims backed by refunds.",
+                  
                 ].map((t, i) => (
                   <div key={i} className="flex items-start gap-3">
                     <CheckCircle2 className="mt-0.5 h-5 w-5"/>
@@ -212,6 +213,22 @@ export default function WTFCorporateSite() {
               </CardContent>
             </Card>
           </div>
+        </div>
+        {/* Segment 2: Packaging Solution */}
+        <div className="mx-auto max-w-7xl px-6 mt-20">
+          <h2 className="text-2xl sm:text-3xl font-extrabold mb-6">Our Patented Zero Plastic Packaging Solution</h2>
+          <video
+            src="Animation.mp4"
+            autoPlay
+            loop
+            muted
+            controls
+            className="rounded-xl shadow-lg max-w-full h-auto"
+            style={{ maxWidth: '640px' }}
+            poster="applebackground-min.jpg"
+          >
+            Sorry, your browser does not support embedded videos.
+          </video>
         </div>
       </Section>
 
@@ -245,10 +262,14 @@ export default function WTFCorporateSite() {
 
       {/* QUALITY */}
       <Section id="quality" className="bg-white text-emerald-900">
-        <AppleQualityInteractive
-          src={`${import.meta.env.BASE_URL}apple.png`} 
-          title="6 different physical and sensory inspections"
-        />
+        {/* Segment 1: Physical and Sensory Inspections */}
+        <div className="mb-12">
+          <AppleQualityInteractive
+            src={`${import.meta.env.BASE_URL}apple.png`} 
+            title="6 different physical and sensory inspections"
+          />
+        </div>
+        
       </Section>
 
 
@@ -352,7 +373,7 @@ export default function WTFCorporateSite() {
             <img src={`${import.meta.env.BASE_URL}logo.png`} alt="What The Fruit" className="h-8"/>
             <span className="text-sm tracking-wider">© {new Date().getFullYear()} Growerscrate Agrotech Pvt. Ltd</span>
           </div>
-          <div className="text-xs opacity-80">Made with care. If it’s not great, we’ll make it right.</div>
+          <div className="text-xs opacity-80">Outrageously Delicious. If it’s not great, we’ll make it right.</div>
           <button onClick={()=>window.scrollTo({top:0,behavior:"smooth"})} className="text-xs underline">Back to top</button>
         </div>
       </footer>
