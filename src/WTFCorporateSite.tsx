@@ -31,7 +31,7 @@ const NAV = [
 ];
 
 const Section: React.FC<{ id: string; className?: string; children: React.ReactNode; ariaLabel?: string }> = ({ id, className, children, ariaLabel }) => (
-  <section id={id} aria-label={ariaLabel ?? id} className={`scroll-mt-24 w-full ${className ?? ""}`}>{children}</section>
+  <section id={id} aria-label={ariaLabel ?? id} className={`scroll-mt-28 snap-start w-full ${className ?? ""}`}>{children}</section>
 );
 
 function useActiveSection(ids: string[]) {
@@ -74,11 +74,28 @@ export default function WTFCorporateSite() {
   const active = useActiveSection(NAV.map(n=>n.id));
 
   const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    const element = document.getElementById(id);
+    if (element) {
+      // Calculate offset to align section start with the red line/visual break
+      // Header height + space to position content properly after visual separators
+      const header = document.querySelector('header');
+      const headerHeight = header ? header.offsetHeight : 100;
+      
+      // Additional offset to align with your red line design element
+      const designOffset = 80; // Adjust this value to align with your red line
+      const totalOffset = headerHeight + designOffset;
+      
+      const elementPosition = element.offsetTop - totalOffset;
+      
+      window.scrollTo({
+        top: Math.max(0, elementPosition), // Ensure we don't scroll past the top
+        behavior: 'smooth'
+      });
+    }
   };
 
   return (
-    <div className="min-h-screen w-full text-emerald-50 bg-white">
+    <div className="min-h-screen w-full text-emerald-50 bg-white scroll-smooth snap-y snap-mandatory overflow-y-scroll h-screen">
       {/* NAVBAR */}
       <header className="fixed top-0 inset-x-0 z-50">
       <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
@@ -235,27 +252,117 @@ export default function WTFCorporateSite() {
       {/* SOURCING */}
       <Section id="sourcing" className="bg-emerald-50 text-emerald-900">
         <div className="mx-auto max-w-7xl px-6 py-20">
-          <div className="grid lg:grid-cols-3 gap-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Our Kinnaur Apple Growers</h2>
+            <p className="text-lg text-emerald-700 max-w-3xl mx-auto">
+              High in the mountains of Kinnaur, Himachal Pradesh, our partner farmers cultivate apples with a distinctive crunch. 
+              The high altitude (8,000-12,000 feet) and unique climate create the perfect conditions for apples with exceptional 
+              texture, sweetness, and that signature crisp bite that sets Kinnaur apples apart.
+            </p>
+          </div>
+          
+          <div className="grid lg:grid-cols-3 xl:grid-cols-5 gap-6 mb-12">
             {[{
-              title: "Partner Farms",
-              icon: <Sprout className="h-6 w-6"/>,
-              body: "We onboard growers with a track record of consistent size, brix and pressure—benchmarked per variety.",
+              name: "Sachin Bhandari",
+              location: "Kalpa, Kinnaur",
+              story: "Growing apples for over 20 years, specializing in Red Delicious varieties that develop their signature crunch from the mountain air.",
+              image: "farmer1.jpg"
             },{
-              title: "Cold Logistics",
-              icon: <Truck className="h-6 w-6"/>,
-              body: "Refrigerated haulage and temperature‑logged storage. Your apples never see a hot day.",
+              name: "Alka Negi", 
+              location: "Reckong Peo, Kinnaur",
+              story: "Third-generation apple farmer whose orchards at 10,000 feet produce some of the crispiest Royal Delicious apples in the region.",
+              image: "farmer2.jpg"
             },{
-              title: "Retail Readiness",
-              icon: <Factory className="h-6 w-6"/>,
-              body: "Gentle handling, shelf‑life testing and packaging designed for protection and presentation.",
-            }].map((c, i)=>(
-              <Card key={i} className="border-emerald-900/20">
+              name: "Sunil",
+              location: "Sangla Valley, Kinnaur", 
+              story: "Pioneer in sustainable farming practices, growing Golden Delicious apples that retain their crunch for months thanks to the cold mountain climate.",
+              image: "farmer3.jpg"
+            },{
+              name: "Chander Shekhar Negi",
+              location: "Pooh, Kinnaur",
+              story: "High-altitude farming specialist whose orchards produce exceptionally sweet apples with the perfect balance of crunch and juice.",
+              image: "farmer4.jpg"
+            },{
+              name: "Gian Negi",
+              location: "Nako, Kinnaur",
+              story: "Master of traditional pruning techniques, growing heritage apple varieties that have adapted to the harsh mountain conditions over decades.",
+              image: "farmer5.jpg"
+            }].map((farmer, i)=>(
+              <Card key={i} className="border-emerald-900/20 overflow-hidden">
+                <div className="aspect-square relative">
+                  <img 
+                    src={farmer.image} 
+                    alt={farmer.name}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-emerald-900">{c.icon}{c.title}</CardTitle>
+                  <CardTitle className="text-emerald-900">{farmer.name}</CardTitle>
+                  <p className="text-sm text-emerald-600 font-medium">{farmer.location}</p>
                 </CardHeader>
-                <CardContent className="text-emerald-900/90">{c.body}</CardContent>
+                <CardContent className="text-emerald-900/90">
+                  {farmer.story}
+                </CardContent>
               </Card>
             ))}
+          </div>
+
+          <div className="mb-12">
+            <h3 className="text-2xl font-bold text-center mb-8">From Orchard to Harvest</h3>
+            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              <div className="bg-white rounded-xl overflow-hidden shadow-lg border border-emerald-200">
+                <div className="aspect-[3/4] relative bg-emerald-100 flex items-center justify-center">
+                  <video
+                    src="orchard-video1.mp4"
+                    controls
+                    className="w-full h-full object-cover"
+                    poster="videoposter1.png"
+                  >
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+                <div className="p-4">
+                  <h4 className="font-semibold text-emerald-900 mb-2">Fruits Ready for Picking</h4>
+                  <p className="text-sm text-emerald-700">
+                    Watch as our farmers carefully select the ripest apples, ensuring each one meets our quality standards for that perfect Kinnaur crunch.
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-xl overflow-hidden shadow-lg border border-emerald-200">
+                <div className="aspect-[3/4] relative bg-emerald-100 flex items-center justify-center">
+                  <video
+                    src="orchard-video2.mp4"
+                    controls
+                    className="w-full h-full object-cover"
+                    poster="videoposter2.png"
+                  >
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+                <div className="p-4">
+                  <h4 className="font-semibold text-emerald-900 mb-2">High-Altitude Orchards</h4>
+                  <p className="text-sm text-emerald-700">
+                    Experience the breathtaking mountain orchards where altitude and climate combine to create apples with unmatched flavor and texture.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-xl p-8 border border-emerald-200">
+            <div className="flex items-start gap-4">
+              <Sprout className="h-8 w-8 text-emerald-600 mt-1"/>
+              <div>
+                <h3 className="text-xl font-semibold mb-3">The Kinnaur Advantage</h3>
+                <p className="text-emerald-800 leading-relaxed">
+                  The extreme altitude and temperature variations in Kinnaur create natural stress conditions that make apples develop 
+                  thicker cell walls and higher sugar content. The result? That distinctive crunch and intense flavor that makes 
+                  Kinnaur apples coveted across India. Our farmers have perfected cultivation techniques passed down through generations, 
+                  combined with modern sustainable practices to ensure every apple meets our exacting standards.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </Section>
